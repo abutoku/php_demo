@@ -32,6 +32,8 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $output .= "<h1 id=fish_title>{$result['name']}</h1>";
 
+$title = "fish infomation";
+
 
 ?>
 
@@ -50,22 +52,8 @@ $output .= "<h1 id=fish_title>{$result['name']}</h1>";
 </head>
 
 <body>
-  <!-- ヘッダー部分 -->
-  <header>
-
-    <!-- ヘッダー左側 -->
-    <div id="header_left">
-      <h1>Infomation</h1>
-    </div>
-
-    <!-- ヘッダー右側 -->
-    <div id="header_right">
-      <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
-      <a href="logout.php" id="logout_btn" class="btn">logout</a>
-    </div>
-
-  </header>
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
 
   <div id="wrapper">
 

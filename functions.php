@@ -1,5 +1,4 @@
 <?php
-
 //---------------------関数ファイル---------------------------------------//
 
 //DB接続のための関数
@@ -7,7 +6,7 @@
 function connect_to_db()
 {
   // 各種項目設定
-  $dbn = 'mysql:dbname=gsacf_l06_10;charset=utf8mb4;port=3306;host=localhost';
+  $dbn = 'mysql:dbname=dive_base;charset=utf8mb4;port=3306;host=localhost';
   $user = 'root';
   $pwd = '';
 
@@ -30,7 +29,7 @@ function connect_to_db()
 //「id が最新ではない」はログインしていない状態
 function check_session_id(){
   if (!isset($_SESSION["session_id"]) || $_SESSION["session_id"] != session_id()) {
-    header('Location:todo_login.php'); //ログイン画面へ
+    header('Location:login.php'); //ログイン画面へ
     exit();
   } else {
     session_regenerate_id(true);  //セッションIDの再生成
