@@ -10,14 +10,15 @@ check_session_id();
 
 //変数にユーザーIDとユーザータイプを取得
 $user_id = $_SESSION['user_id'];
-$admin = $_SESSION['is_admin'];
-
 
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
 //date-tableからuserIDが一致しているものを取得
-$sql = 'SELECT * FROM date_table WHERE user_id = :user_id ORDER BY date DESC';
+$sql = 'SELECT id,date,dive_site 
+FROM date_table WHERE user_id = :user_id 
+ORDER BY date DESC';
+
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
@@ -30,6 +31,11 @@ try {
 
 // SQL実行の処理
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($result);
+// echo '</pre>';
+// exit();
 
 
 $sql = 'SELECT profile_image FROM profile_table WHERE user_id = :user_id';
@@ -46,9 +52,7 @@ try {
 // SQL実行の処理
 $image = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
-if(!$image){
+if (!$image) {
   $image["profile_image"] = 'img/null.png';
 }
 
@@ -57,18 +61,21 @@ if(!$image){
 // echo '</pre>';
 // exit();
 
-
-
 //繰り返し処理を用いて，取得したデータから HTML タグを生成する
 $output = ""; //表示のための変数
 foreach ($result as $record) {
+  //エスケープ処理
+  $id = htmlspecialchars($record["id"], ENT_QUOTES);
+  $date = htmlspecialchars($record["date"], ENT_QUOTES);
+  $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
+
   $output .= "
-    <a href=view.php?id={$record["id"]}><li class=date_txt>{$record["date"]} {$record['dive_site']}</li></a>
+    <a href=view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
 ";
 }
 
-        //タグづけ
-        //<a href=view.php?id=date_id<li class=btn date_txt> date </li></a>
+//タグづけ
+//<a href=view.php?id=date_id<li class=btn date_txt> date dive_site</li></a>
 
 //タイトル表示のための変数
 $title = "Top page";
@@ -88,12 +95,17 @@ $title = "Top page";
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+  <!-- font-awesome読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
 </head>
 
 <body>
 
-<!-- ヘッダー読み込み -->
-<?php include('header.php'); ?>
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
 
   <div id="wrapper">
 
@@ -101,6 +113,8 @@ $title = "Top page";
     <section id="top_btn_section">
       <a href="date_input.php">
         <div id="add_btn" class="add">add</div>
+        <i class="las la-paw"></i>
+        <span class="fa-layers-counter" style="background:Tomato">1,419</span>
       </a>
     </section>
 
@@ -109,21 +123,21 @@ $title = "Top page";
         <input type="text">
         <button type="submit">serch</button>
       </form>
-
     </section>
 
     <!-- 日付とポイント名出力部分 -->
     <section>
       <ul id="date_list">
         <?= $output ?>
+        <!--PHP側でエスケープ処理済み -->
         <ul>
     </section>
 
   </div>
+  <!-- wrapperここまで -->
 
   <!-- jquery読み込み -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 
 </body>
 

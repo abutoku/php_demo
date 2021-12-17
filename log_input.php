@@ -1,5 +1,4 @@
 <?php
-
 //--------------------魚のテーブルに登録フォーム---------------------------//
 
 // セッションの開始
@@ -38,8 +37,9 @@ $title = "fishdata input page";
 
 <body>
 
-  <!-- ヘッダー部分 -->
-  
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
+
 
   <div id="wrapper">
 
@@ -84,9 +84,9 @@ $title = "fishdata input page";
         <canvas id="canvas" width="480" height="360" style="border:1px solid #000;"></canvas>
       </div><!-- canvas入力画面ここまで -->
 
-      
+
     </section><!-- input_sectionここまで -->
-    
+
     <img src="https://api.tide736.net/tide_image.php?pc=40&hc=19&yr=2021&mn=12&dy=6&rg=day&w=640&h=512&lc=lightslategray&gcs=deepskyblue&gcf=blue&ld=on&ttd=on&tsmd=on">
   </div><!-- wrapperここまで -->
 
@@ -204,7 +204,6 @@ $title = "fishdata input page";
     ctx.stroke(); //実際に書く関数(枠線)
     ctx.fill(); //塗りつぶし
   });
-
 </script>
 
 </html>
