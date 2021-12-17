@@ -7,7 +7,7 @@
 function connect_to_db()
 {
   // 各種項目設定
-  $dbn = 'mysql:dbname=gsacf_l06_10;charset=utf8mb4;port=3306;host=localhost';
+  $dbn = 'mysql:dbname=dive_base;charset=utf8mb4;port=3306;host=localhost';
   $user = 'root';
   $pwd = '';
 

@@ -16,6 +16,9 @@ $user_id = $_SESSION['user_id'];
 // var_dump($date_id);
 // exit();
 
+//タイトル表示のための変数
+$title = "fishdata input page";
+
 
 ?>
 
@@ -36,21 +39,7 @@ $user_id = $_SESSION['user_id'];
 <body>
 
   <!-- ヘッダー部分 -->
-  <header>
-
-    <!-- ヘッダー左側部分 -->
-    <div id="header_left">
-      <h1>FISH Input</h1>
-    </div>
-
-    <!-- ヘッダー右側部分 -->
-    <div id="header_right">
-      <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
-      <a href="logout.php" id="logout_btn">logout</a>
-    </div>
-
-  </header>
+  
 
   <div id="wrapper">
 

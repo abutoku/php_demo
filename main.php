@@ -67,8 +67,11 @@ foreach ($result as $record) {
 ";
 }
 
-//タグづけ
-//<a href=view.php?id=date_id<li class=btn date_txt> date </li></a>
+        //タグづけ
+        //<a href=view.php?id=date_id<li class=btn date_txt> date </li></a>
+
+//タイトル表示のための変数
+$title = "Top page";
 
 ?>
 
@@ -88,23 +91,9 @@ foreach ($result as $record) {
 </head>
 
 <body>
-  <!-- ヘッダー部分 -->
-  <header>
 
-    <!-- ヘッダー左側 -->
-    <div id="header_left">
-      <h1>FISH Log</h1>
-    </div>
-
-    <!-- ヘッダー右側 -->
-    <div id="header_right">
-      <img src=<?= $image["profile_image"]?> id="profile_image">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
-      <a href="logout.php" id="logout_btn" class="btn">logout</a>
-      <a href="profile_input.php">プロフィール画像を登録</a>
-    </div>
-
-  </header>
+<!-- ヘッダー読み込み -->
+<?php include('header.php'); ?>
 
   <div id="wrapper">
 

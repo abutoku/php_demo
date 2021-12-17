@@ -2,7 +2,6 @@
 
 // ------------日付ごとの詳細ページ-------------------------------------//
 
-
 // セッションの開始
 session_start();
 //関数読み込み
@@ -15,17 +14,15 @@ $date_id = $_GET['id'];
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
-$sql = 'SELECT * FROM log_table LEFT OUTER JOIN date_table ON log_table.date_id = date_table.id WHERE log_table.date_id = :date_id';
-// $sql = 'SELECT * FROM log_table WHERE date_id = :date_id ORDER BY fishname ASC';
+$sql = 'SELECT date,dive_site,temp,name,depth,b.id
+FROM log_table as a
+LEFT JOIN fish_table as b ON a.fish_id = b.id 
+LEFT JOIN date_table as c ON a.date_id = c.id 
+WHERE a.date_id = :date_id
+ORDER BY name ASC';
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':date_id', $date_id, PDO::PARAM_STR);
-
-//SELECT * FROM log_table LEFT OUTER JOIN log_table ON date_table.id = log_table.date_id;
-
-//SELECT * FROM date_table LEFT OUTER JOIN log_table ON date_table.id = log_table.date_id WHERE log_table.date_id = :date_id ORDER BY log_table.fishname ASC;
-
-// SELECT * FROM ( date_table LEFT OUTER JOIN log_table ON date_table.id = log_table.date_id ) AS main_table WHERE main_table.date_id = 27 ORDER BY main_table.fishname ASC;
 
 try {
   $status = $stmt->execute();
@@ -49,12 +46,15 @@ $output = "";
 foreach ($result as $record) {
   $output .= "
   <div class=fish_contatiner>
-    <div></div>
-    <div id=output{$record['id']} class=fish_contents>
-      <a href=infomation.php?id={$record['fish_id']}><div class=fish_name>{$record['fishname']}</div></a>
+    <div class=fish_contents>
+      <a href=infomation.php?id={$record['id']}>
+        <div class=fish_name>{$record['name']}</div>
+      </a>
+
       <div class=infomation>
         <div>水深{$record['depth']}ｍ</div>
       </div>
+
     </div>
   <div>
 ";
@@ -87,7 +87,7 @@ foreach ($result as $record) {
 
     <div id="header_right">
       <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
+      <div id="user_name"><?= htmlspecialchars($_SESSION['username'], ENT_QUOTES) ?></div>
       <a href="logout.php" id="logout_btn" class="btn">logout</a>
     </div>
 
@@ -103,8 +103,8 @@ foreach ($result as $record) {
     </div>
 
     <section id="title_section">
-      <div id="date_title"><?= $day ?></div>
-      <div id="temp_title">水温:<?= $temp ?>℃</div>
+      <div id="date_title"><?= htmlspecialchars($day, ENT_QUOTES) ?></div>
+      <div id="temp_title">水温:<?= htmlspecialchars($temp, ENT_QUOTES) ?>℃</div>
     </section>
 
     <section id="log_list">
