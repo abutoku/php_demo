@@ -1,0 +1,198 @@
+/*-------- 全体のスタイル ------------------------------*/
+
+* {
+  box-sizing: border-box;
+}
+
+/* 画面幅 */
+#wrapper {
+  width: 90%;
+  margin:0 auto;
+}
+
+/* リンクのスタイルを初期化 */
+a:link,
+a:visited,
+a:hover, 
+a:active {  
+    text-decoration: none;  
+    color: #454545;  
+} 
+/* リストの点を消す */
+li {
+  list-style: none;
+}
+
+/* ボタンのカーソル設定 */
+.btn {
+  cursor: pointer;
+}
+
+/* ----main.php トップ画面 -----------------------------------------------*/
+
+/* メインヘッダー */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ヘッダー左側部分 */
+#header_left {
+  margin-left: 24px;
+}
+
+/* ヘッダー 文字*/
+#header_left h1 {
+  font-size: 42px;
+}
+
+/* プロフィールイメージ */
+#profile_image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* ヘッダー右側部分 */
+#header_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24px;
+}
+
+/* ユーザー名表示 */
+#user_name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ログアウトボタン */
+#logout_btn {
+  text-align: center;
+  line-height:42px;
+  width: 60px;
+  margin-left: 20px;
+  background-color: #006fbe;
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* 追加ボタン部分 */
+#top_btn_section {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+/* データ入力画面へのリンクボタン */
+#add_btn {
+  text-align: center;
+  line-height:32px;
+  width: 60px;
+  background-color: #006fbe;
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* 検索部分 */
+#search_section {
+  margin-bottom: 24px;
+}
+
+/* 日付リスト部分 */
+.date_txt {
+  font-size: 24px;
+  color: #454545;
+  margin-bottom: 12px;
+}
+
+/* ----date_input.php  日付テーブル入力画面-----------------------------------------------*/
+
+/* トップリンクボタン部分 */
+#top_btn {
+  text-align: center;
+  line-height:32px;
+  width: 60px;
+  background-color: #006fbe;
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* データ入力部分 */
+#date_input_section {
+  margin-bottom: 24px;
+}
+
+#date_input_section input {
+  height: 32px;
+  width: 180px;
+  margin-right: 24px;
+  font-size: 16px;
+}
+
+#date_input_section button {
+  height: 32px;
+}
+
+/* データ登録ボタン*/
+#date_add_btn {
+  margin-top: 24px;
+}
+
+
+/* ------log_input.php 魚データ入力画面------------------*/
+
+#log_input_section {
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#fish_input_btn {
+  margin-top:24px;
+}
+
+#log_input_contents,
+#canvas_contents {
+  width: 50%;
+}
+
+/* ---------view.php 魚データ出力ページ --------------------*/
+
+#title_section {
+  margin-bottom: 32px;
+}
+
+/* 日付表示部分 */
+#date_title {
+  font-size: 32px;
+}
+
+/* 水温表示部分 */
+#temp_title {
+  font-size: 24px;
+}
+
+/* 魚表示部分 */
+.fish_contents {
+  margin-bottom: 24px;
+}
+
+/* 魚表示部分 */
+.fish_name {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* --------infomation.php 図鑑ページ------------------------------*/
+
+/* 図鑑ページ表示部分 */
+#infometion_section {
+  margin-top: 48px;
+}
+
+/* 図鑑ページの魚名 */
+#fish_title {
+  font-size:48px;
+}
