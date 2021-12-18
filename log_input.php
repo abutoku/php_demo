@@ -1,5 +1,4 @@
 <?php
-
 //--------------------魚のテーブルに登録フォーム---------------------------//
 
 // セッションの開始
@@ -16,6 +15,9 @@ $user_id = $_SESSION['user_id'];
 // var_dump($date_id);
 // exit();
 
+//タイトル表示のための変数
+$title = "fishdata input page";
+
 
 ?>
 
@@ -31,26 +33,16 @@ $user_id = $_SESSION['user_id'];
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 
+  <!-- font-awesome読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
 </head>
 
 <body>
 
-  <!-- ヘッダー部分 -->
-  <header>
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
 
-    <!-- ヘッダー左側部分 -->
-    <div id="header_left">
-      <h1>FISH Input</h1>
-    </div>
-
-    <!-- ヘッダー右側部分 -->
-    <div id="header_right">
-      <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
-      <a href="logout.php" id="logout_btn">logout</a>
-    </div>
-
-  </header>
 
   <div id="wrapper">
 
@@ -95,20 +87,17 @@ $user_id = $_SESSION['user_id'];
         <canvas id="canvas" width="480" height="360" style="border:1px solid #000;"></canvas>
       </div><!-- canvas入力画面ここまで -->
 
-      
+
     </section><!-- input_sectionここまで -->
-    
+
     <img src="https://api.tide736.net/tide_image.php?pc=40&hc=19&yr=2021&mn=12&dy=6&rg=day&w=640&h=512&lc=lightslategray&gcs=deepskyblue&gcf=blue&ld=on&ttd=on&tsmd=on">
   </div><!-- wrapperここまで -->
 
   <!-- jquery読み込み -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <!-- bootstrap js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-  <!-- bootstrap toggle -->
-  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  <!-- main.js読み込み -->
+  <script src="./js/main.js"></script>
 
 
 
@@ -215,7 +204,6 @@ $user_id = $_SESSION['user_id'];
     ctx.stroke(); //実際に書く関数(枠線)
     ctx.fill(); //塗りつぶし
   });
-
 </script>
 
 </html>

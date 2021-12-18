@@ -1,5 +1,4 @@
 <?php
-
 //--------------------日付のテーブル登録フォーム---------------------------//
 
 // セッションの開始
@@ -45,7 +44,7 @@ foreach ($result as $record) {
 
 //タグ
 //<li><a href=fish_input.php?id=date_id> date </a></li>
-
+$title = "Date input page";
 
 ?>
 
@@ -62,24 +61,15 @@ foreach ($result as $record) {
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 
+  <!-- font-awesome読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
 </head>
 
 <body>
-  <!-- ヘッダー部分 -->
-  <header>
-    <!-- ヘッダー左側 -->
-    <div id="header_left">
-      <h1>Date Input</h1>
-    </div>
 
-    <!-- ヘッダー右側 -->
-    <div id="header_right">
-      <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= $_SESSION['username'] ?></div>
-      <a href="logout.php" id="logout_btn">logout</a>
-    </div>
-
-  </header>
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
 
   <div id="wrapper">
 
@@ -110,7 +100,7 @@ foreach ($result as $record) {
         </div>
 
         <!-- ユーザー名をgetで送信する準備 -->
-        <input type="hidden" name="user_id" value="<?= $user_id ?>">
+        <input type="hidden" name="user_id" value="<?= htmlspecialchars($user_id, ENT_QUOTES) ?>">
 
         <!-- 送信ボタン -->
         <button type="submit" id="date_add_btn">add</button>
@@ -130,6 +120,12 @@ foreach ($result as $record) {
     </section>
 
   </div><!-- wrapperここまで -->
+
+  <!-- jquery読み込み -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- main.js読み込み -->
+  <script src="./js/main.js"></script>
 
 </body>
 
