@@ -29,6 +29,8 @@
 
       <button type="submit">ログイン</button>
     </form>
+
+    <a href="user_input.php">create ID</a>
   </div>
   <!--wrapperここまで-->
 
