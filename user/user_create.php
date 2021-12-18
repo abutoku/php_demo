@@ -65,15 +65,12 @@ try {
   exit();
 }
 
-$createid = $stmt->fetch(PDO::FETCH_ASSOC);
-
-var_dump($createid['id']);
-exit();
-
+//結果をcreateIdに取得
+$createId = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $_SESSION = array(); //セッションを一旦リセット
 $_SESSION['session_id'] = session_id(); //セッションIDを取得
-$_SESSION['user_id'] = $$createid['id'];//user_idをセッションに渡す
+$_SESSION['user_id'] = $createId['id'];//作成されたuser_idをセッションに渡す
 
 //処理が終わった後はプロフィール登録ページへ移動
 header("Location:profile_input.php");
