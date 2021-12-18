@@ -1,3 +1,34 @@
+<!-- ハンバーガーメニューの内容 -->
+<div id="menu_contents">
+  <div id="my_acount">
+    <img src=<?= htmlspecialchars($_SESSION['imgUrl'], ENT_QUOTES) ?> class="profile_img">
+    <div><?= htmlspecialchars($username, ENT_QUOTES) ?></div>
+  </div>
+
+  <div id="menu_list">
+    <ul>
+      <li>プロフィール</li>
+      <li>お気に入り</li>
+      <li>設定</li>
+      <li>ヘルプ</li>
+    </ul>
+    <!-- ログアウトボタン -->
+    <div>
+      <a href="./logout.php">
+        <div id="logout_btn">logout</div>
+      </a>
+    </div>
+
+  </div>
+</div>
+<!-- menu_contentsここまで -->
+
+<!-- ハンバーガーメニューの背景 -->
+<div id="mask">
+  <!-- クローズボタン -->
+  <div class="fas fa-angle-double-right btn" id="close"></div>
+</div>
+
 <!-- ヘッダー部分 -->
 <header>
 
@@ -8,10 +39,7 @@
 
   <!-- ヘッダー右側 -->
   <div id="header_right">
-    <img src=<?= htmlspecialchars($image["profile_image"],ENT_QUOTES) ?> id="profile_image">
-    <div id="user_name"><?= htmlspecialchars($_SESSION['username'],ENT_QUOTES)?></div>
-    <a href="logout.php" id="logout_btn" class="btn">logout</a>
-    <a href="profile_input.php">プロフィール画像を登録</a>
+    <div class="fas fa-bars btn" id="hamburger"></div>
   </div>
 
 </header>

@@ -61,6 +61,9 @@ $title = "Date input page";
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 
+  <!-- font-awesome読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
 </head>
 
 <body>
@@ -117,6 +120,12 @@ $title = "Date input page";
     </section>
 
   </div><!-- wrapperここまで -->
+
+  <!-- jquery読み込み -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- main.js読み込み -->
+  <script src="./js/main.js"></script>
 
 </body>
 
