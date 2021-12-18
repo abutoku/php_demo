@@ -1,13 +1,14 @@
 <!-- ハンバーガーメニューの内容 -->
 <div id="menu_contents">
+
   <div id="my_acount">
-    <img src=<?= htmlspecialchars($_SESSION['imgUrl'], ENT_QUOTES) ?> class="profile_img">
+    <img src=<?= htmlspecialchars($imgUrl, ENT_QUOTES) ?> class="profile_img">
     <div><?= htmlspecialchars($username, ENT_QUOTES) ?></div>
   </div>
 
   <div id="menu_list">
     <ul>
-      <li>プロフィール</li>
+      <a href="./user/profile_view.php"><li>プロフィール</li></a>
       <li>お気に入り</li>
       <li>設定</li>
       <li>ヘルプ</li>

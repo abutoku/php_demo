@@ -53,7 +53,7 @@ if (!$val) { //もしユーザーがいなければ
 
     //管理者の確認
     if ($_SESSION['is_admin'] == '1') {
-      header("Location:../admin.main.php");  //管理者であれば、adimin.main.phpへ
+      header("Location:../admin/admin.main.php");  //管理者であれば、adimin.main.phpへ
       exit();
     } else {
       header("Location:../main.php"); //一般ユーザーであればmain.phpへ

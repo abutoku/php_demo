@@ -39,10 +39,12 @@ check_session_id();
       <div>
         <p>カードランク</p>
         <select name="card_rank" id="card_rank">
+          <option disabled selected value>ランクを選択</option>
           <option value="OW">OW</option>
           <option value="AOW">AOW</option>
           <option value="MSD">MSD</option>
           <option value="DM">DM</option>
+          <option value="Pro">Pro</option>
         </select>
       </div>
 

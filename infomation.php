@@ -9,6 +9,11 @@ check_session_id();
 
 $fish_id = $_GET['id'];
 
+//セッションから変数に代入
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$imgUrl = $_SESSION['profile_image'];
+
 // var_dump($fish_id);
 // exit();
 
