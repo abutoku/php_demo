@@ -1,5 +1,5 @@
 <?php
-//--------------------トップ画面-----------------------------------------------//
+//-----------トップ画面------------------------------------//
 
 // セッションの開始
 session_start();
@@ -13,30 +13,6 @@ $user_id = $_SESSION['user_id'];
 
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
-
-//date-tableからuserIDが一致しているものを取得
-$sql = 'SELECT id,date,dive_site 
-FROM date_table WHERE user_id = :user_id 
-ORDER BY date DESC';
-
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-
-try {
-  $status = $stmt->execute();
-} catch (PDOException $e) {
-  echo json_encode(["sql error" => "{$e->getMessage()}"]);
-  exit();
-}
-
-// SQL実行の処理
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// echo '<pre>';
-// var_dump($result);
-// echo '</pre>';
-// exit();
-
 
 $sql = 'SELECT profile_image FROM profile_table WHERE user_id = :user_id';
 $stmt = $pdo->prepare($sql);
@@ -68,7 +44,29 @@ foreach ($result as $record) {
   $id = htmlspecialchars($record["id"], ENT_QUOTES);
   $date = htmlspecialchars($record["date"], ENT_QUOTES);
   $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
-
+  
+  //date-tableからuserIDが一致しているものを取得
+  $sql = 'SELECT id,date,dive_site 
+  FROM date_table WHERE user_id = :user_id 
+  ORDER BY date DESC';
+  
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+  
+  try {
+    $status = $stmt->execute();
+  } catch (PDOException $e) {
+    echo json_encode(["sql error" => "{$e->getMessage()}"]);
+    exit();
+  }
+  
+  // SQL実行の処理
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+  // echo '<pre>';
+  // var_dump($result);
+  // echo '</pre>';
+  // exit();
   $output .= "
     <a href=view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
 ";

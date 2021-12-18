@@ -29,7 +29,7 @@ function connect_to_db()
 //「id が最新ではない」はログインしていない状態
 function check_session_id(){
   if (!isset($_SESSION["session_id"]) || $_SESSION["session_id"] != session_id()) {
-    header('Location:login.php'); //ログイン画面へ
+    header('Location:./user/login.php'); //ログイン画面へ
     exit();
   } else {
     session_regenerate_id(true);  //セッションIDの再生成
