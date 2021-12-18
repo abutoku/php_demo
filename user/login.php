@@ -1,4 +1,4 @@
-<!-- 新規登録画面 -->
+<!-- ログイン画面 -->
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ユーザー登録</title>
+  <title>ログイン</title>
 
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/style.css">
@@ -16,8 +16,8 @@
 
 <body>
   <div id="wrapper">
-    <h1>新規登録</h1>
-    <form action="user_create.php" method="post">
+    <h1>ログイン</h1>
+    <form action="login_check.php" method="post">
       <div>
         <p>email</p>
         <input type="email" name="email" required>
@@ -27,11 +27,13 @@
         <input type="password" name="password" required>
       </div>
 
-      <button type="submit">登録</button>
+      <button type="submit">ログイン</button>
     </form>
+
+    <a href="user_input.php">create ID</a>
   </div>
   <!--wrapperここまで-->
-  
+
   <!-- jquery読み込み -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>

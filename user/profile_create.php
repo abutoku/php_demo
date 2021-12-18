@@ -1,4 +1,5 @@
 <?php
+//---プロフィール登録処理のphp----------------//
 
 // セッションの開始
 session_start();
@@ -37,4 +38,3 @@ try {
 header("Location:../main.php");
 exit();
 
-?>

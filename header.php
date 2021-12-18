@@ -14,7 +14,7 @@
     </ul>
     <!-- ログアウトボタン -->
     <div>
-      <a href="./logout.php">
+      <a href="./user/logout.php">
         <div id="logout_btn">logout</div>
       </a>
     </div>
