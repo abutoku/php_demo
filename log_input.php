@@ -10,7 +10,11 @@ check_session_id();
 
 
 $date_id = $_GET['id'];
+
+//セッションから変数に代入
 $user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$imgUrl = $_SESSION['profile_image'];
 
 // var_dump($date_id);
 // exit();

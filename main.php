@@ -14,7 +14,12 @@ $user_id = $_SESSION['user_id'];
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
-$sql = 'SELECT profile_image FROM profile_table WHERE user_id = :user_id';
+//ログインしているユーザーの情報を取得
+// profile_table(a)とusers_table(b)を結合
+$sql = 'SELECT username,card_rank,dive_count,birthday,profile_image,user_id 
+FROM profile_table as a LEFT JOIN users_table as b ON user_id = b.id 
+WHERE a.user_id = :user_id';
+
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
@@ -25,28 +30,26 @@ try {
   exit();
 }
 
-// SQL実行の処理
-$image = $stmt->fetch(PDO::FETCH_ASSOC);
+//$userに渡す
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$image) {
-  $image["profile_image"] = 'img/null.png';
+$_SESSION['username'] = $user['username'];//セッションにユーザ名を渡す
+$_SESSION['profile_image'] = $user['profile_image'];//セッションにプロフィール画像のURLを渡す
+
+//セッションから変数に代入
+$username = $_SESSION['username'];
+$imgUrl = $_SESSION['profile_image'];
+
+
+//もし画像の登録がなければ仮の画像のパスを代入
+if (!$imgUrl) {
+  $imgUrl = 'img/null.png';
 }
 
-// echo '<pre>';
-// var_dump($image);
-// echo '</pre>';
-// exit();
 
-//繰り返し処理を用いて，取得したデータから HTML タグを生成する
-$output = ""; //表示のための変数
-foreach ($result as $record) {
-  //エスケープ処理
-  $id = htmlspecialchars($record["id"], ENT_QUOTES);
-  $date = htmlspecialchars($record["date"], ENT_QUOTES);
-  $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
-  
-  //date-tableからuserIDが一致しているものを取得
-  $sql = 'SELECT id,date,dive_site 
+
+//date-tableからuserIDが一致しているものを取得
+$sql = 'SELECT id,date,dive_site 
   FROM date_table WHERE user_id = :user_id 
   ORDER BY date DESC';
   
@@ -67,9 +70,16 @@ foreach ($result as $record) {
   // var_dump($result);
   // echo '</pre>';
   // exit();
+  //繰り返し処理を用いて，取得したデータから HTML タグを生成する
+  $output = ""; //表示のための変数
+  foreach ($result as $record) {
+    //エスケープ処理
+    $id = htmlspecialchars($record["id"], ENT_QUOTES);
+    $date = htmlspecialchars($record["date"], ENT_QUOTES);
+    $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
   $output .= "
-    <a href=view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
-";
+  <a href=view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
+  ";
 }
 
 //タグづけ
