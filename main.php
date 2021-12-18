@@ -95,10 +95,7 @@ $title = "Top page";
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 
-  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
-  <!-- font-awesome読み込み -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 
 </head>
 
@@ -113,8 +110,8 @@ $title = "Top page";
     <section id="top_btn_section">
       <a href="date_input.php">
         <div id="add_btn" class="add">add</div>
-        <i class="las la-paw"></i>
-        <span class="fa-layers-counter" style="background:Tomato">1,419</span>
+        
+
       </a>
     </section>
 
