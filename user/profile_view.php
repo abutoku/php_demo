@@ -11,39 +11,17 @@ check_session_id();
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
-// var_dump($_SESSION);
-// exit();
 
-//セッションから変数に代入
+
 $user_id = $_SESSION['user_id'];
-$username = $_SESSION['username'];
-$imgUrl = $_SESSION['profile_image'];
 
 
-//SQL実行
-//今回は「ユーザが入力したデータ」を使用しないのでバインド変数は不要．
-$sql = 'SELECT * FROM date_table WHERE user_id = :user_id ORDER BY date ASC';
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
-
-try {
-  $status = $stmt->execute();
-} catch (PDOException $e) {
-  echo json_encode(["sql error" => "{$e->getMessage()}"]);
-  exit();
-}
 
 // SQL実行の処理
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//繰り返し処理を用いて，取得したデータから HTML タグを生成する
-$output = ""; //表示のための変数
-foreach ($result as $record) {
-  $output .= "
-    <li class=date_txt><a href=log_input.php?id={$record["id"]}>{$record["date"]} {$record['dive_site']}</a></li>
-    ";
-}
+
 
 //タグ
 //<li><a href=fish_input.php?id=date_id> date </a></li>

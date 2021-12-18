@@ -34,7 +34,7 @@ try {
 //もし同じメールアドレスが登録済みであればエラー
 if ($stmt->fetchColumn() > 0) {
   echo '<p>すでに登録されているメールアドレスです．</p>';
-  echo '<a href="todo_login.php">login</a>';
+  echo '<a href="login.php">login</a>';
   exit();
 }
 
