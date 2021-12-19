@@ -36,16 +36,13 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $_SESSION['username'] = $user['username'];//セッションにユーザ名を渡す
 $_SESSION['profile_image'] = $user['profile_image'];//セッションにプロフィール画像のURLを渡す
 
+//もし画像の登録がなければ仮の画像のパスを代入
+if (!$_SESSION['profile_image']) {
+  $_SESSION['profile_image'] = 'img/null.png';
+}
 //セッションから変数に代入
 $username = $_SESSION['username'];
 $imgUrl = $_SESSION['profile_image'];
-
-
-//もし画像の登録がなければ仮の画像のパスを代入
-if (!$imgUrl) {
-  $imgUrl = 'img/null.png';
-}
-
 
 
 //date-tableからuserIDが一致しているものを取得
@@ -120,8 +117,6 @@ $title = "Top page";
     <section id="top_btn_section">
       <a href="date_input.php">
         <div id="add_btn" class="add">add</div>
-
-
       </a>
     </section>
 
