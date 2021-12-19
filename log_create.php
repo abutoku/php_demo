@@ -71,7 +71,7 @@ try {
   exit();
 }
 
-//処理が終わった後のページ移動
+//処理が終わったら、life_input生物登録のページ移動
 header("Location:life_input.php");
 exit();
 
