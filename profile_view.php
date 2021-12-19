@@ -70,7 +70,7 @@ $title = "profile page";
   <div id="img_upload_inner">
     <form action="./profile_img_upload.php" id="img_upload_form" method="post" enctype="multipart/form-data">
       <img src=<?= htmlspecialchars($imgUrl, ENT_QUOTES) ?> class="my_img" id="demo_img">
-      <input type="file" name="upfile" id="new_profile_img" accept="image/*">
+      <input type="file" name="upfile" id="new_profile_img" accept="image/*" required>
       <button type="sumit" id="img_upload_btn">変更</button>
     </form>
   </div>

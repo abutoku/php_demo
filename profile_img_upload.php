@@ -43,6 +43,40 @@ if (isset($_FILES['upfile']) && $_FILES['upfile']['error'] == 0) {
 //DB接続
 $pdo = connect_to_db();
 
+//-------「ファイルを保存したパス」をテーブルに保存-----
+
+//profile_tableからuser_idが一致しているものを取得しprofile_imageに$save_pathを保存（更新）
+$sql = 'UPDATE profile_table SET profile_image = :profile_image WHERE user_id = :user_id';
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':user_id',$user_id, PDO::PARAM_STR);
+$stmt->bindValue(':profile_image',$save_path, PDO::PARAM_STR); //保存したパスをテーブルに追加
+
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
+
+//profile_tableから更新後のprofile_imageを取得
+$sql = 'SELECT profile_image FROM profile_table WHERE user_id = :user_id';
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
+
+$update = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//セッションに更新後のprofile_imageを渡す
+$_SESSION['profile_image'] = $update['profile_image'];
+
 //処理が終わった後のページ移動
 header("Location:profile_view.php");
 exit();
