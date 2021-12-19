@@ -322,7 +322,7 @@ header {
 }
 
 
-/* ---log_input.php  日付テーブル入力画------------------*/
+/* ---log_input.php  ログ入力画面-------------------------*/
 
 
 /* データ入力部分 */
@@ -353,21 +353,41 @@ header {
 }
 
 
-/* ------life_input.php 魚データ入力画面------------------*/
+/* ---life_input.php 生物データ入力画面------------------*/
 
+/* 生物情報入力欄 */
 #life_input_section {
   padding: 32px;
-  display: flex;
-  justify-content: space-between;
 }
 
+/* 生物情報登録ボタン */
 #life_input_btn {
   margin-top:24px;
 }
 
-#life_input_contents,
-#canvas_contents {
-  width: 50%;
+/* 生物画像選択部分 */
+#select_img {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction:column;
+}
+
+/* 生物画像インプット部分 */
+#select_img input {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/* 選択した画像の表示部分 */
+#demo_img {
+  width: 200px;
+  height: 150px;
+  object-fit:cover;
+}
+
+/* キャンバス部分 */
+#canvas_contents{
+  margin-top: 100px;
 }
 
 /* ---------view.php 魚データ出力ページ --------------------*/
