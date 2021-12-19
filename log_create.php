@@ -1,43 +1,42 @@
 <?php
-//--------------------魚のテーブルに登録処理---------------------------//
+//--------------------日付のテーブルに登録処理---------------------------//
 
+// セッションの開始
+session_start();
 //関数読み込み
 include('functions.php');
+//セッション状態の確認の関数
+check_session_id();
 
-// echo '<pre>';
 // var_dump($_POST);
-// echo '</pre>';
 // exit();
 
 if (
-  !isset($_POST['fishname']) || $_POST['fishname'] == '' ||
-  !isset($_POST['depth']) || $_POST['depth'] == '' ||
-  !isset($_POST['user_id']) || $_POST['user_id'] == ''||
-  !isset($_POST['date_id']) || $_POST['date_id'] == ''
+  !isset($_POST['date']) || $_POST['date'] == '' ||
+  !isset($_POST['dive_site']) || $_POST['dive_site'] == ''||
+  !isset($_POST['dive_time']) || $_POST['dive_time'] == ''||
+  !isset($_POST['temp']) || $_POST['temp'] == ''||
+  !isset($_POST['comment']) || $_POST['comment'] == ''
 ) {
   exit('ParamError'); //エラーを返す
 }
 
-// データの受け取り
-$fishname = $_POST['fishname'];
-$depth = $_POST['depth'];
-$user_id = $_POST['user_id'];
-$date_id = $_POST['date_id'];
+$date = $_POST['date'];
+$dive_site = $_POST['dive_site'];
+$dive_time = $_POST['dive_time'];
+$temp = $_POST['temp'];
+$comment = $_POST['comment'];
+$user_id = $_SESSION['user_id'];
 
-// var_dump($fishname);
-// var_dump($depth);
-// var_dump($user_id);
-// var_dump($date_id);
-// exit();
 
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
-$sql = 'SELECT * FROM fish_table WHERE name = :fishname';
+$sql = 'SELECT COUNT(*) FROM log_table WHERE user_id = :user_id AND date=:date';
 
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':fishname', $fishname, PDO::PARAM_STR);
-
+$stmt->bindValue(':date', $input_date, PDO::PARAM_STR);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
 try {
   $status = $stmt->execute();
@@ -46,62 +45,35 @@ try {
   exit();
 }
 
-$fish = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($stmt->fetchColumn() > 0) {
+  echo '<p>すでに登録されている日付です.</p>';
+  echo '<a href="date_input.php">戻る</a>';
+  exit();
+}
 
 
-//fish_tableにすでに登録されているかで条件分岐
-if($fish){ //すでに登録されている場合は
-  $fish_id = $fish['id']; //fish_tableのIDを取得
+//SQL 登録処理実行
+$sql = 'INSERT INTO log_table(id,date,dive_site,dive_time,temp,comment,created_at,updated_at,user_id) 
+VALUES(NULL,:date,:dive_site,:dive_time,:temp,:comment,now(),now(),:user_id)';
 
-  //SQL log_table 登録処理実行
-  $sql = 'INSERT INTO 
-  log_table(id,fishname,depth,date_id,user_id,fish_id,created_at,updated_at)
-  VALUES(NULL,:fishname,:depth,:date_id,:user_id,:fish_id,now(),now())';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':date',$date, PDO::PARAM_STR);
+$stmt->bindValue(':dive_site',$dive_site, PDO::PARAM_STR);
+$stmt->bindValue(':dive_time',$dive_time, PDO::PARAM_STR);
+$stmt->bindValue(':temp',$temp, PDO::PARAM_STR);
+$stmt->bindValue(':comment',$comment, PDO::PARAM_STR);
+$stmt->bindValue(':user_id',$user_id, PDO::PARAM_STR);
 
-  $stmt = $pdo->prepare($sql);
-  $stmt->bindValue(':fishname', $fishname, PDO::PARAM_STR);
-  $stmt->bindValue(':depth', $depth, PDO::PARAM_STR);
-  $stmt->bindValue(':date_id', $date_id, PDO::PARAM_STR);
-  $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-  $stmt->bindValue(':fish_id', $fish_id, PDO::PARAM_STR);
-
-  try {
-    $status = $stmt->execute();
-  } catch (PDOException $e) {
-    echo json_encode(["sql error" => "{$e->getMessage()}"]);
-    exit();
-  }
-
-} else { //もし登録がない場合はfish_tableに登録
-
-  //SQL fish_table 登録処理実行 → log_table 登録処理実行
-  $sql = 'INSERT INTO 
-  fish_table (id,name,infomation,user_id,created_at,updated_at) 
-  VALUE (NULL,:fishname,"",:user_id,now(),now());
-  INSERT INTO 
-  log_table(id,fishname,depth,date_id,user_id,fish_id,created_at,updated_at) 
-  VALUES(NULL,:fishname,:depth,:date_id,:user_id,LAST_INSERT_ID(),now(),now())';
-
-  $stmt = $pdo->prepare($sql);
-  $stmt->bindValue(':fishname', $fishname, PDO::PARAM_STR);
-  $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-  $stmt->bindValue(':depth', $depth, PDO::PARAM_STR);
-  $stmt->bindValue(':date_id', $date_id, PDO::PARAM_STR);
-  
-  try {
-    $status = $stmt->execute();
-  } catch (PDOException $e) {
-    echo json_encode(["sql error" => "{$e->getMessage()}"]);
-    exit();
-  }
-
-}//条件分岐ここまで
-
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
 
 //処理が終わった後のページ移動
-header("Location:date_input.php");
+header("Location:life_input.php");
 exit();
-
 
 
 ?>

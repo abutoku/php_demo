@@ -3,12 +3,14 @@
 
   <div id="my_acount">
     <img src=<?= htmlspecialchars($imgUrl, ENT_QUOTES) ?> class="profile_img">
-    <div id ="user_name"><?= htmlspecialchars($username, ENT_QUOTES) ?></div>
+    <div id="user_name"><?= htmlspecialchars($username, ENT_QUOTES) ?></div>
   </div>
 
   <div id="menu_list">
     <ul>
-      <a href="./profile_view.php"><li>プロフィール</li></a>
+      <a href="./profile_view.php">
+        <li>プロフィール</li>
+      </a>
       <li>お気に入り</li>
       <li>設定</li>
       <li>ヘルプ</li>
@@ -40,6 +42,9 @@
 
   <!-- ヘッダー右側 -->
   <div id="header_right">
+    <a href="main.php" id="top_btn">
+      <div id="top_btn">TOP</div>
+    </a>
     <div class="fas fa-bars btn" id="hamburger"></div>
   </div>
 
