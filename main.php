@@ -36,21 +36,18 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $_SESSION['username'] = $user['username'];//セッションにユーザ名を渡す
 $_SESSION['profile_image'] = $user['profile_image'];//セッションにプロフィール画像のURLを渡す
 
+//もし画像の登録がなければ仮の画像のパスを代入
+if (!$_SESSION['profile_image']) {
+  $_SESSION['profile_image'] = 'img/null.png';
+}
 //セッションから変数に代入
 $username = $_SESSION['username'];
 $imgUrl = $_SESSION['profile_image'];
 
 
-//もし画像の登録がなければ仮の画像のパスを代入
-if (!$imgUrl) {
-  $imgUrl = 'img/null.png';
-}
-
-
-
-//date-tableからuserIDが一致しているものを取得
+//log-tableからuserIDが一致しているものを取得
 $sql = 'SELECT id,date,dive_site 
-  FROM date_table WHERE user_id = :user_id 
+  FROM log_table WHERE user_id = :user_id 
   ORDER BY date DESC';
   
   $stmt = $pdo->prepare($sql);
@@ -70,6 +67,7 @@ $sql = 'SELECT id,date,dive_site
   // var_dump($result);
   // echo '</pre>';
   // exit();
+
   //繰り返し処理を用いて，取得したデータから HTML タグを生成する
   $output = ""; //表示のための変数
   foreach ($result as $record) {
@@ -78,7 +76,7 @@ $sql = 'SELECT id,date,dive_site
     $date = htmlspecialchars($record["date"], ENT_QUOTES);
     $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
   $output .= "
-  <a href=view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
+  <a href=log_view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
   ";
 }
 
@@ -118,10 +116,8 @@ $title = "Top page";
 
     <!-- データ追加ボタン -->
     <section id="top_btn_section">
-      <a href="date_input.php">
-        <div id="add_btn" class="add">add</div>
-
-
+      <a href="log_input.php">
+        <div id="add_btn" class="add">ログ作成</div>
       </a>
     </section>
 

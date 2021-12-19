@@ -10,6 +10,14 @@ check_session_id();
 
 $date_id = $_GET['id'];
 
+var_dump($date_id);
+exit();
+
+//セッションから変数に代入
+$user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$imgUrl = $_SESSION['profile_image'];
+
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
@@ -59,7 +67,7 @@ foreach ($result as $record) {
 ";
 }
 
-
+$title ='fish infometion';
 
 ?>
 
@@ -81,19 +89,8 @@ foreach ($result as $record) {
 </head>
 
 <body>
-  <header>
-
-    <div id="header_left">
-      <h1>Fish Data</h1>
-    </div>
-
-    <div id="header_right">
-      <img src="./img/face.JPG" id="profile_image" alt="プロフィール画像">
-      <div id="user_name"><?= htmlspecialchars($_SESSION['username'], ENT_QUOTES) ?></div>
-      <a href="logout.php" id="logout_btn" class="btn">logout</a>
-    </div>
-
-  </header>
+  <!-- ヘッダー読み込み -->
+  <?php include('header.php'); ?>
 
   <div id="wrapper">
 
@@ -120,7 +117,7 @@ foreach ($result as $record) {
 
   <!-- main.js読み込み -->
   <script src="./js/main.js"></script>
-  
+
 </body>
 
 </html>

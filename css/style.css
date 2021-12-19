@@ -1,7 +1,11 @@
 @charset "utf-8";
-/*-------- 全体のスタイル ------------------------------*/
+/*---全体のスタイル ------------------------------*/
 * {
   box-sizing: border-box;
+}
+
+body {
+  color: #454545;
 }
 
 /* 画面幅 */
@@ -29,7 +33,18 @@ li {
   cursor: pointer;
 }
 
-/* ---------ヘッダー共通部分 -------------------------------*/
+/* ボタンのスタイルをリセット */
+button {
+	background: none;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+  border: 1px solid black;
+}
+
+/* ---ヘッダー共通部分 -------------------------------*/
 
 /* メインヘッダー */
 header {
@@ -50,11 +65,28 @@ header {
 
 /* ヘッダー右側部分 */
 #header_right {
-  font-size: 56px;
+  margin-right: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* トップリンクボタン部分 */
+#top_btn {
+  text-align: center;
+  line-height:32px;
+  width: 60px;
+  background-color: #454545;
+  border-radius: 10px;
+  color: #fff;
   margin-right: 24px;
 }
 
-/* ------ハンバーガーメニュー -----------------------------*/
+.fa-bars {
+  font-size: 56px;
+}
+
+/* ---ハンバーガーメニュー -----------------------------*/
 
 /* メニューの背景部分 */
 #mask {
@@ -83,20 +115,9 @@ header {
   z-index: 11;
 }
 
-/* メニュー内ログアウトボタン */
-#logout_btn {
-  text-align: center;
-  line-height:42px;
-  width: 200px;
-  margin-left: 20px;
-  background-color: #006fbe;
-  border-radius: 10px;
-  color: #fff;
-}
-
 /* メニュー内プロフィール画像とユーザー名表示部分 */
 #my_acount {
-  margin: 32px auto;
+  margin: 48px auto;
   text-align: center;
 }
 
@@ -105,7 +126,43 @@ header {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  object-fit:cover;
 }
+
+/* ユーザー名表示部分 */
+#user_name {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* メニュー部分 */
+#menu_list {
+  text-align: center;
+}
+
+/* メニューリスト項目部分 */
+#menu_list li {
+  margin-top: 24px;
+}
+
+/* ログアウトボタン部分 */
+#logout_section {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+/* メニュー内ログアウトボタン */
+#logout_btn {
+  text-align: center;
+  line-height:56px;
+  width: 200px;
+  background-color: #006fbe;
+  color: #fff;
+  border-radius: 10px;
+}
+
 /* ----main.php トップ画面 ----------------------------------*/
 
 /* 追加ボタン部分 */
@@ -118,7 +175,7 @@ header {
 #add_btn {
   text-align: center;
   line-height:32px;
-  width: 60px;
+  width: 100px;
   background-color: #006fbe;
   border-radius: 10px;
   color: #fff;
@@ -136,53 +193,179 @@ header {
   margin-bottom: 12px;
 }
 
-/* ----date_input.php  日付テーブル入力画面-----------------------------------------------*/
+/* ---profile_view.php -----------------------------------*/
 
-/* トップリンクボタン部分 */
-#top_btn {
-  text-align: center;
-  line-height:32px;
-  width: 60px;
-  background-color: #006fbe;
-  border-radius: 10px;
-  color: #fff;
+/* プロフィール写真表示部分 */
+#img_section {
+  margin-top: 56px;
 }
 
-/* データ入力部分 */
-#date_input_section {
+/* プロフィール写真 */
+.my_img {
+  width: 250px;
+  height: 250px;
+  object-fit:cover;
+}
+
+/* プロフィール詳細表示部分 */
+#profile_section{
+  margin-top: 24px;
+}
+
+/* ユーザー名 */
+#profile_section h1{
+  font-size: 48px;
   margin-bottom: 24px;
 }
 
-#date_input_section input {
+/* tableの見出しを左寄せ */
+#profile_section th,
+#gear_section th,
+#camera_section th {
+  text-align: left;
+}
+
+/* tdの左側のスペースを調節 */
+#profile_section td,
+#gear_section td,
+#camera_section td {
+  padding-left: 24px;
+}
+
+/* 器材表示部分 */
+#gear_section {
+  margin-top:24px ; 
+}
+
+/* 器材表示タイトル */
+#gear_section h1{
+  margin-bottom:24px ;
+}
+
+/* カメラ表示部分 */
+#camera_section {
+  margin-top:24px ; 
+}
+
+/* カメラ表示タイトル */
+#camera_section h1 {
+  font-size: 24px;; 
+}
+
+/* 編集ボタンの配置 */
+#edit_btn_section {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction:column;
+  margin-top: 32px;
+}
+
+/* 編集ボタンのスタイル */
+.edit_btn {
+  text-align: center;
+  line-height:40px;
+  width: 200px;
+  background-color: #006fbe;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* 編集ボタン内テキスト */
+.edit_btn div {
+  color: #fff;
+}
+
+/* プロフィール編集入力モーダル */
+
+/* 背景 */
+#img_mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 12;
+}
+
+/* モーダル閉じるボタン */
+.fa-times {
+  color: #fff;
+  font-size: 56px;
+  margin-top: 56px;
+  margin-left: 56px;
+}
+
+/* 画像選択フォーム */
+#img_upload_inner {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 350px;
+  height: 500px;
+  z-index: 13;
+  text-align: center;
+  padding:24px;
+}
+
+/* 画像変更ボタン */
+#img_upload_btn {
+  text-align: center;
+  line-height:40px;
+  width: 200px;
+  background-color: #006fbe;
+  color:#fff;
+  border-radius: 10px;
+  margin-top: 48px;
+}
+
+
+/* ---log_input.php  日付テーブル入力画------------------*/
+
+
+/* データ入力部分 */
+#log_input_section {
+  margin-top: 80px;
+  margin-bottom: 24px;
+}
+
+#log_input_section input {
   height: 32px;
   width: 180px;
   margin-right: 24px;
   font-size: 16px;
 }
 
-#date_input_section button {
+#log_input_section textarea {
+  width: 400px;
+  height: 200px;
+}
+
+#log_input_section button {
   height: 32px;
 }
 
 /* データ登録ボタン*/
-#date_add_btn {
+#log_add_btn {
   margin-top: 24px;
 }
 
 
-/* ------log_input.php 魚データ入力画面------------------*/
+/* ------life_input.php 魚データ入力画面------------------*/
 
-#log_input_section {
+#life_input_section {
   padding: 32px;
   display: flex;
   justify-content: space-between;
 }
 
-#fish_input_btn {
+#life_input_btn {
   margin-top:24px;
 }
 
-#log_input_contents,
+#life_input_contents,
 #canvas_contents {
   width: 50%;
 }
