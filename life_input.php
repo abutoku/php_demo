@@ -68,8 +68,9 @@ $title = "fishdata input page";
         </div>
 
         <!-- 画像を選択 -->
-        <div>
-          <input type="file" id="life_pic" enctype="multipart/form-data">
+        <div id="select_img">
+          <input type="file" id="life_pic" name="img" enctype="multipart/form-data">
+          <img src="./img/no_image.png" alt="アップロード画像" id="demo_img">
         </div>
 
         <div>
