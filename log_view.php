@@ -8,10 +8,10 @@ include('functions.php');
 //セッション状態の確認の関数
 check_session_id();
 
-$date_id = $_GET['id'];
+$log_id = $_GET['id'];
 
-var_dump($date_id);
-exit();
+// var_dump($log_id);
+// exit();
 
 //セッションから変数に代入
 $user_id = $_SESSION['user_id'];
@@ -21,15 +21,12 @@ $imgUrl = $_SESSION['profile_image'];
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
-$sql = 'SELECT date,dive_site,temp,name,depth,b.id
-FROM log_table as a
-LEFT JOIN fish_table as b ON a.fish_id = b.id 
-LEFT JOIN date_table as c ON a.date_id = c.id 
-WHERE a.date_id = :date_id
-ORDER BY name ASC';
+//タイトル表示のためにlog_tableからlog_idとuser_idが一致するものを取得
+$sql = 'SELECT * FROM log_table WHERE id = :log_id AND user_id = :user_id';
 
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':date_id', $date_id, PDO::PARAM_STR);
+$stmt->bindValue(':log_id', $log_id, PDO::PARAM_STR);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 
 try {
   $status = $stmt->execute();
@@ -39,35 +36,59 @@ try {
 }
 
 // SQL実行の処理
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$date = $result['date'];//表示場所の変数へ代入
+$dive_site = $result['dive_site'];//表示場所の変数へ代入
+$dive_time = $result['dive_time'];//表示場所の変数へ代入
+$temp = $result['temp'];//表示場所の変数へ代入
+$comment = $result['comment']; //表示場所の変数へ代入
+
+
+$sql = 'SELECT img,depth,name,info_id FROM life_table as a LEFT JOIN info_table as b ON a.info_id = b.id WHERE a.log_id = :log_id AND a.user_id = :user_id';
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':log_id', $log_id, PDO::PARAM_STR);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
+// SQL実行の処理
+$val = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // echo '<pre>';
-// var_dump($result);
+// var_dump($val);
 // echo '</pre>';
 // exit();
 
-$day = $result[0]['date'];
-$temp = $result[0]['temp'];
-
 $output = "";
-foreach ($result as $record) {
-  $output .= "
-  <div class=fish_contatiner>
-    <div class=fish_contents>
-      <a href=infomation.php?id={$record['id']}>
-        <div class=fish_name>{$record['name']}</div>
-      </a>
+foreach ($val as $record) {
+  $img = htmlspecialchars($record["img"], ENT_QUOTES);
+  $depth = htmlspecialchars($record["depth"], ENT_QUOTES);
+  $name = htmlspecialchars($record["name"], ENT_QUOTES);
+  $info_id = htmlspecialchars($record["info_id"], ENT_QUOTES);
 
-      <div class=infomation>
-        <div>水深{$record['depth']}ｍ</div>
+  $output .= "
+  <div class=life_contatiner>
+    <div class=life_contents>
+      <div class=life_pic>
+      <img src={$img}>
       </div>
 
+      <div class=infomation>
+        <div>{$name}</div>
+        <div>水深{$depth}ｍ</div>
+      </div>
     </div>
   <div>
 ";
 }
 
-$title ='fish infometion';
+$title ='';
 
 ?>
 
@@ -94,19 +115,15 @@ $title ='fish infometion';
 
   <div id="wrapper">
 
-    <!-- トップボタン部分 -->
-    <div id="top_btn_section">
-      <a href="main.php" id="top_btn">
-        <div id="top_btn">TOP</div>
-      </a>
-    </div>
-
     <section id="title_section">
-      <div id="date_title"><?= htmlspecialchars($day, ENT_QUOTES) ?></div>
+      <div id="date_title"><?= htmlspecialchars($date, ENT_QUOTES) ?></div>
+      <div id="site_title"><?= htmlspecialchars($dive_site, ENT_QUOTES) ?></div>
       <div id="temp_title">水温:<?= htmlspecialchars($temp, ENT_QUOTES) ?>℃</div>
+      <div id="time_title">DIVE TIME:<?= htmlspecialchars($dive_time, ENT_QUOTES) ?>min</div>
+      <div id="comment_title"><?= htmlspecialchars($comment, ENT_QUOTES) ?></div>
     </section>
 
-    <section id="log_list">
+    <section id="life_list">
       <?= $output ?>
     </section>
 
