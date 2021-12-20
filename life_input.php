@@ -53,7 +53,7 @@ $title = "fishdata input page";
 
     <section id="life_input_section">
 
-      <form action="life_create.php" method="post" id=life_input_coutents>
+      <form action="life_create.php" method="post" id=life_input_coutents enctype="multipart/form-data">
         <!-- 魚の名前 -->
         <div>
           <p>name</p>
@@ -68,15 +68,13 @@ $title = "fishdata input page";
 
         <!-- 画像を選択 -->
         <div id="select_img">
-          <input type="file" id="life_pic" name="img" enctype="multipart/form-data">
+          <input type="file" id="life_pic" name="upfile" accept="image/*">
           <img src="./img/no_image.png" alt="アップロード画像" id="demo_pic">
         </div>
 
         <div>
-          <!-- ユーザーIDを取得しておく部分 -->
-          <input type="text" name="user_id" value=<?= htmlspecialchars($user_id, ENT_QUOTES) ?>>
-          <!-- 日付のIDを取得しておく部分 -->
-          <input type="text" name="log_id" value=<?= htmlspecialchars($log_id, ENT_QUOTES) ?>>
+          <!-- ログのIDを取得しておく部分 -->
+          <input type="hidden" name="log_id" value=<?= htmlspecialchars($log_id, ENT_QUOTES) ?>>
         </div>
 
         <!-- 登録ボタン -->
