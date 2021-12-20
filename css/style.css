@@ -379,7 +379,7 @@ header {
 }
 
 /* 選択した画像の表示部分 */
-#demo_img {
+#demo_pic {
   width: 200px;
   height: 150px;
   object-fit:cover;

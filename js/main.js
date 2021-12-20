@@ -46,3 +46,13 @@ $('#new_profile_img').on('change', function (e) {
   }
   reader.readAsDataURL(e.target.files[0]);
 });
+
+//---生物の画像が選択されたらプレビュー表示-------------//
+
+$('#life_pic').on('change', function (e) {
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    $("#demo_pic").attr('src', e.target.result);
+  }
+  reader.readAsDataURL(e.target.files[0]);
+});

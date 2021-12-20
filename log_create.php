@@ -32,6 +32,7 @@ $user_id = $_SESSION['user_id'];
 // DB接続
 $pdo = connect_to_db(); //データベース接続の関数、$pdoに受け取る
 
+//同じユーザーが同じ日付のログを作成していないかチェック
 $sql = 'SELECT COUNT(*) FROM log_table WHERE user_id = :user_id AND date=:date';
 
 $stmt = $pdo->prepare($sql);
@@ -52,7 +53,7 @@ if ($stmt->fetchColumn() > 0) {
 }
 
 
-//SQL 登録処理実行
+//SQL log_tableにデータ登録
 $sql = 'INSERT INTO log_table(id,date,dive_site,dive_time,temp,comment,created_at,updated_at,user_id) 
 VALUES(NULL,:date,:dive_site,:dive_time,:temp,:comment,now(),now(),:user_id)';
 
@@ -70,6 +71,26 @@ try {
   echo json_encode(["sql error" => "{$e->getMessage()}"]);
   exit();
 }
+
+//登録したログの情報を取得
+$sql = 'SELECT * FROM log_table WHERE id = LAST_INSERT_ID()';
+
+$stmt = $pdo->prepare($sql);
+
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
+
+$log = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+//セッションにログIDを渡す
+$_SESSION['log_id'] = $log['id'];
+
 
 //処理が終わったら、life_input生物登録のページ移動
 header("Location:life_input.php");
