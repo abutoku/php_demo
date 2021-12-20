@@ -33,8 +33,8 @@ try {
 //$userに渡す
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$_SESSION['username'] = $user['username'];//セッションにユーザ名を渡す
-$_SESSION['profile_image'] = $user['profile_image'];//セッションにプロフィール画像のURLを渡す
+$_SESSION['username'] = $user['username']; //セッションにユーザ名を渡す
+$_SESSION['profile_image'] = $user['profile_image']; //セッションにプロフィール画像のURLを渡す
 
 //もし画像の登録がなければ仮の画像のパスを代入
 if (!$_SESSION['profile_image']) {
@@ -49,32 +49,32 @@ $imgUrl = $_SESSION['profile_image'];
 $sql = 'SELECT id,date,dive_site 
   FROM log_table WHERE user_id = :user_id 
   ORDER BY date DESC';
-  
-  $stmt = $pdo->prepare($sql);
-  $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-  
-  try {
-    $status = $stmt->execute();
-  } catch (PDOException $e) {
-    echo json_encode(["sql error" => "{$e->getMessage()}"]);
-    exit();
-  }
-  
-  // SQL実行の処理
-  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-  // echo '<pre>';
-  // var_dump($result);
-  // echo '</pre>';
-  // exit();
 
-  //繰り返し処理を用いて，取得したデータから HTML タグを生成する
-  $output = ""; //表示のための変数
-  foreach ($result as $record) {
-    //エスケープ処理
-    $id = htmlspecialchars($record["id"], ENT_QUOTES);
-    $date = htmlspecialchars($record["date"], ENT_QUOTES);
-    $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+
+try {
+  $status = $stmt->execute();
+} catch (PDOException $e) {
+  echo json_encode(["sql error" => "{$e->getMessage()}"]);
+  exit();
+}
+
+// SQL実行の処理
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// echo '<pre>';
+// var_dump($result);
+// echo '</pre>';
+// exit();
+
+//繰り返し処理を用いて，取得したデータから HTML タグを生成する
+$output = ""; //表示のための変数
+foreach ($result as $record) {
+  //エスケープ処理
+  $id = htmlspecialchars($record["id"], ENT_QUOTES);
+  $date = htmlspecialchars($record["date"], ENT_QUOTES);
+  $dive_site = htmlspecialchars($record["dive_site"], ENT_QUOTES);
   $output .= "
   <a href=log_view.php?id={$id}><li class=date_txt>{$date} {$dive_site}</li></a>
   ";
@@ -131,8 +131,8 @@ $title = "Top page";
     <!-- 日付とポイント名出力部分 -->
     <section>
       <ul id="date_list">
-        <?= $output ?>
         <!--PHP側でエスケープ処理済み -->
+        <?= $output ?>
         <ul>
     </section>
 

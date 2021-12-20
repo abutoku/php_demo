@@ -11,7 +11,7 @@
       <a href="./profile_view.php">
         <li>プロフィール</li>
       </a>
-      <li>お気に入り</li>
+      <li>写真一覧</li>
       <li>設定</li>
       <li>ヘルプ</li>
     </ul>

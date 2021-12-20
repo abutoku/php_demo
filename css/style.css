@@ -390,8 +390,9 @@ header {
   margin-top: 100px;
 }
 
-/* ---------view.php 魚データ出力ページ --------------------*/
+/* ---------log_view.php ログデータ詳細ページ --------------------*/
 
+/* ログの項目表示部分 */
 #title_section {
   margin-bottom: 32px;
 }
@@ -401,23 +402,52 @@ header {
   font-size: 32px;
 }
 
+/* ダイブポイント表示部分 */
+#site_title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
 /* 水温表示部分 */
 #temp_title {
   font-size: 24px;
 }
 
-/* 魚表示部分 */
-.fish_contents {
+/* ダイブタイム表示部分 */
+#time_title {
+  font-size: 24px;
   margin-bottom: 24px;
 }
 
-/* 魚表示部分 */
-.fish_name {
-  font-weight: bold;
-  font-size: 24px;
+/* 生物表示部分 */
+.life_contents {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* --------infomation.php 図鑑ページ------------------------------*/
+.life_pic,
+.infomation {
+  width: 50%;
+}
+
+.life_pic img{
+  width: 100%;
+  object-fit:cover;
+}
+
+.infomation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+
+
+}
+
+/* ---infomation.php 図鑑ページ------------------------*/
 
 /* 図鑑ページ表示部分 */
 #infometion_section {
