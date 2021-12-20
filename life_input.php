@@ -9,7 +9,7 @@ include('functions.php');
 check_session_id();
 
 
-$log_id = $_GET['id'];
+$log_id = $_SESSION['log_id'];
 
 //セッションから変数に代入
 $user_id = $_SESSION['user_id'];
@@ -47,7 +47,6 @@ $title = "fishdata input page";
   <!-- ヘッダー読み込み -->
   <?php include('header.php'); ?>
 
-
   <div id="wrapper">
 
     <a href="main.php">登録しない</a>
@@ -70,14 +69,14 @@ $title = "fishdata input page";
         <!-- 画像を選択 -->
         <div id="select_img">
           <input type="file" id="life_pic" name="img" enctype="multipart/form-data">
-          <img src="./img/no_image.png" alt="アップロード画像" id="demo_img">
+          <img src="./img/no_image.png" alt="アップロード画像" id="demo_pic">
         </div>
 
         <div>
           <!-- ユーザーIDを取得しておく部分 -->
-          <input type="hidden" name="user_id" value=<?= htmlspecialchars($user_id, ENT_QUOTES) ?>>
+          <input type="text" name="user_id" value=<?= htmlspecialchars($user_id, ENT_QUOTES) ?>>
           <!-- 日付のIDを取得しておく部分 -->
-          <input type="hidden" name="date_id" value=<?= htmlspecialchars($date_id, ENT_QUOTES) ?>>
+          <input type="text" name="log_id" value=<?= htmlspecialchars($log_id, ENT_QUOTES) ?>>
         </div>
 
         <!-- 登録ボタン -->

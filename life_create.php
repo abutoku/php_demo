@@ -4,10 +4,10 @@
 //関数読み込み
 include('functions.php');
 
-// echo '<pre>';
-// var_dump($_POST);
-// echo '</pre>';
-// exit();
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+exit();
 
 if (
   !isset($_POST['fishname']) || $_POST['fishname'] == '' ||
